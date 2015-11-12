@@ -12,6 +12,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 app.use(cookieParser());
 app.listen(8080);
+console.log('server listen');
 app.use('/', routes);
 
 module.exports=app;
