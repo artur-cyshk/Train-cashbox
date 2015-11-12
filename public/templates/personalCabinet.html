@@ -1,0 +1,47 @@
+<div class="row-fluid">
+		<nav class="navbar">
+			<div class="personalMenu col-md-6 col-sd-6 col-xs-6">
+				{{user.username}}, Ваш счет: {{user.cash}} $
+			</div>
+		 	<div class="menu col-md-6 col-sd-6 col-xs-6">
+		 		<a href="#/getShedule">Расписание</a>
+				<a href='#/profile/{{user.userId}}'>Профиль</a>
+		 		<a href="#/logOut">Выйти</a>
+			</div>
+		</nav>
+</div>
+<div ng-controller="ticketCtrl">
+	<h1 ng-if="!error">История покупок билетов</h1>
+	<div class="alert alert-danger text-center" ng-if="error" role="alert">{{error}}</div>
+	<table class="table table-striped" ng-if="visibleTable(tickets.length)">
+			<thead>
+				<th>Дата</th>
+				<th>Поезд</th>
+				<th>Место</th>
+				<th>Вагон</th>
+				<th>Откуда</th>
+				<th>Куда</th>
+				<th>Цена</th>
+				<th>№ Паспорта</th>
+				<th>ФИО</th>
+				<th>Возможность отмены</th>
+			</thead>
+			<tbody>
+				<tr ng-repeat="ticket in tickets">
+					<td><b>{{ticket.date}}</b></td>
+					<td><b>№</b> {{ticket.trainNumber}} {{ticket.trainType}}</td>
+					<td><b>№</b> {{ticket.placeNumber}} {{ticket.placeType}}</td>
+					<td><b>№</b> {{ticket.wagonNumber}} {{ticket.wagonType}}</td>
+					<td>{{ticket.firstStation}}</td>
+					<td>{{ticket.lastStation}}</td>
+					<td>{{ticket.price}} $</td>
+					<td>{{ticket.passportData}}</td>
+					<td>{{ticket.name}}<br>{{ticket.secondName}}<br>{{ticket.lastName}}</td>
+					<td ng-if="checkStatus(ticket.status) && !checkDateError(ticket.date)"><input type="button" class="btn btnMain" style="color:white" value="cancel" ng-click="cancelTicket(ticket.ticketId)"></td>
+					<td ng-if="checkStatus(ticket.status) && checkDateError(ticket.date)">отмена невозможна</td>
+					<td ng-if="!checkStatus(ticket.status) && !checkDateError(ticket.date)">отмена невозможна</td>
+				</tr>
+			</tbody>
+		</table>
+		
+</div> 
